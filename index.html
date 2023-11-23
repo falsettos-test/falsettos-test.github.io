@@ -1,55 +1,107 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <style>
-        /* Style for the image container */
-        .image-container {
-          position: relative;
-          display: inline-block;
-          max-width: 100%;
-        }
-    
-        /* Style for the image */
-        .image-container img {
-          width: 100%; /* Make the image responsive */
-          height: auto;
-          max-width: 100%;
-        }
-    
-        /* Style for the hyperlink button */
-        .image-button {
-          position: absolute;
-          top: 33%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background-color: transparent;
-          border: none;
-          color: #fff;
-          padding: 3% 6%; /* Increase the padding to make the button bigger */
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 6vw; /* Increase the font size for the button text */
-          cursor: pointer;
-          border-radius: 10px; /* Adjust the value to control the roundness of the corners */
-          background-color: #0074D9; /* Change this to your desired button color */
-          white-space: nowrap; /* Prevent line breaks in the text */
-        }
-    
-        /* Style for the button on hover */
-        .image-button:hover {
-          background-color: #0056b3; /* Change this to your desired hover color */
-        }
-      </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="ko" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Falsettos Korea</title>
-</head>
-<body>
-    
-    <div class="image-container">
-        <img src="falsettos-poster.jpg" alt="falsettos-poster">
-        <a href="https://youtu.be/osVoSSL_aaI?t=74" class="image-button">Go to Falsetto Land</a>
-    </div>
-</body>
+    <meta
+      name="description"
+      content="A starter example with all elements and components used in Pico design system. Built with Pico CSS."
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap");
+    </style>
+
+    <!-- Pico.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.colors.min.css"
+    />
+    <style>
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+      }
+      main.container {
+        max-width: 510px !important;
+      }
+      body > header {
+        position: sticky;
+        top: 0;
+        padding: 0 1rem 0 1rem;
+      }
+
+      body > footer {
+        position: fixed;
+        bottom: 0;
+        padding: 0 1rem 1rem 1rem;
+      }
+      body > footer button {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="pico-background-slate-850">
+      <nav>
+        <ul>
+          <li><a href="javascript:replaceMainTags('./home.html')">Home</a></li>
+          <li><a href="javascript:replaceMainTags('./cast.html')">Cast</a></li>
+          <li>
+            <a href="javascript:replaceMainTags('./dictionary.html')"
+              >Dictionary</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- ./ Header -->
+
+    <!-- Main -->
+    <main class="container"></main>
+    <!-- ./ Main -->
+
+    <!-- Footer -->
+    <footer>
+      <a
+        href="https://www.sejongpac.or.kr:443/portal/performance/performance/view.do?performIdx=34789&menuNo=200004"
+        ><button onclick="changeState(this)" class="primary">
+          예매하러 가기
+        </button></a
+      >
+    </footer>
+    <!-- ./ Footer -->
+
+    <script>
+      function changeState(element) {
+        element.setAttribute("aria-busy", true);
+      }
+    </script>
+    <script>
+      window.addEventListener("load", replaceMainTags("./home.html"));
+
+      function replaceMainTags(includePath) {
+        var mainElements = document.getElementsByTagName("main");
+        Array.prototype.forEach.call(mainElements, function (el) {
+          if (includePath) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+                el.innerHTML = this.responseText;
+                window.scrollTo(0, 0);
+              }
+            };
+            xhttp.open("GET", includePath, true);
+            xhttp.send();
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
